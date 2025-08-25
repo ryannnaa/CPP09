@@ -14,7 +14,7 @@ int main(int argc, char **argv)
 	}
 	try
 	{
-		BitCoinExchange btc("data.csv");
+		BitCoinExchange btc("database/data.csv");
 		btc.checkPrices(argv[1]);
 	}
 	catch (std::exception &e)
