@@ -11,7 +11,7 @@ OBJ_DIR   := obj
 NAME      := PmergeMe
 
 # === Source Files (manually list them here, relative to src/) ===
-SRC_FILES := main.cpp
+SRC_FILES := main.cpp PmergeMe.cpp
 
 # === Source Paths ===
 SRCS      := $(addprefix $(SRC_DIR)/, $(SRC_FILES))

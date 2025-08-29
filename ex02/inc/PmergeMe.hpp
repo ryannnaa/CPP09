@@ -8,16 +8,21 @@
 class PmergeMe
 {
 	private:
-		std::vector<int> _vector;
-		std::deque<int> _deque;		
+		std::vector<int> _unsorted;
+		std::vector<int> _sorted;		
+		float _deq;
+		float _vec;
 	public:
 		PmergeMe();
+		PmergeMe(const std::vector<int>& v);
 		PmergeMe(const PmergeMe& other);
 		PmergeMe& operator=(const PmergeMe& other);
 		~PmergeMe();
 
-		void sort();
+		void vecSort();
+		// void deqSort();
 		void print();
 };
+
 
 #endif

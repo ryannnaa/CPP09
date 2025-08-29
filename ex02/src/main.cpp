@@ -1,3 +1,4 @@
+#include "PmergeMe.hpp"
 #include <cctype>
 #include <cstdlib>
 #include <iostream>
@@ -28,7 +29,6 @@ void parseArguments(char **argv, std::vector<int>& v)
 	{
 		std::istringstream iss(argv[i]);
 		std::string token;
-
 		while (iss >> token)
 		{
 			if (!isPositiveInt(token))
@@ -49,6 +49,10 @@ int main(int argc, char **argv)
 	{
 		std::vector<int> v;
 		parseArguments(argv, v);
+
+		PmergeMe test(v);
+		test.vecSort();
+		test.print();
 	}
 	catch (std::exception& e)
 	{
