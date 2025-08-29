@@ -56,7 +56,6 @@ BitCoinExchange::BitCoinExchange(const std::string& file)
 	while (std::getline(content, line))
 	{
 		std::istringstream iss(line.c_str());
-
 		std::string key;
 		std::getline(iss, key, ',');
 		if (key.size() != 10 || key[4] != '-' || key[7] != '-')
@@ -142,7 +141,6 @@ void BitCoinExchange::checkPrices(const std::string& file) const
 		{
 			float amount = it->second * value;
 			std::cout << key << " => " << value << " = " << std::fixed << std::setprecision(2) << amount << std::endl;
-	
 		}
 	}
 }

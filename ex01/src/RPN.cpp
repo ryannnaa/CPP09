@@ -39,6 +39,7 @@ void RPN::applyOperator(const std::string& op)
 
 	int b = _items.top();
 	_items.pop();
+
 	int a = _items.top();
 	_items.pop();
 
@@ -65,7 +66,6 @@ void RPN::calculate(const std::string& input)
 {
 	std::istringstream iss(input);
 	std::string token;
-
 	while (iss >> token)
 	{
 		if (isNumber(token))
@@ -73,7 +73,6 @@ void RPN::calculate(const std::string& input)
 		else
 			applyOperator(token);
 	}
-
 	if (_items.size() != 1)
 		throw std::runtime_error("Invalid RPN expression");
 }
