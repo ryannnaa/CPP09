@@ -53,41 +53,41 @@ static void mergeSort(Container& c, int left, int right)
 static std::vector<std::size_t> insertionOrder(std::size_t n)
 {
 	static const int JACOBSTHAL[] = {
-		    0, 1, 1, 3, 5, 11, 21, 43, 85, 171,
+		    0, 1, 3, 5, 11, 21, 43, 85, 171,
 		    341, 683, 1365, 2731, 5461, 10923,
-		    21845, 43691, 87381, 174763, 349525
+		    21845, 43691, 87381, 174763, 349525,
+		    699051, 1398101, 2796203, 5592405
 	};
+	static const std::size_t len = sizeof(JACOBSTHAL) / sizeof(JACOBSTHAL[0]);
 
 	std::vector<std::size_t> order;
-	if (n == 0)
+	if (n <= 0)
 		return (order);
-	std::vector<bool> used(n, false);
 
-	for (size_t i = 1; JACOBSTHAL[i] <= static_cast<int>(n); i++)
+	order.push_back(1);
+
+	std::size_t prev = 1;
+	for (std::size_t i = 2; i < len && static_cast<std::size_t>(JACOBSTHAL[i]) < n; i++)
 	{
-		std::size_t index = JACOBSTHAL[i] - 1;
-		if (!used[index])
-		{
+		std::size_t upper = JACOBSTHAL[i];
+		if (upper >= n)
+			upper = n - 1;
+
+		for (std::size_t index = upper; index > prev; index--)
 			order.push_back(index);
-			used[index] = true;
-		}
 
-		std::size_t start;
-		start = (i > 1) ? JACOBSTHAL[i - 1] : 1;
-		for (std::size_t j = start; j < static_cast<std::size_t>(JACOBSTHAL[i]); j++)
-		{
-			std::size_t blankIndex = j - 1;
-			if (!used[blankIndex])
-			{
-				order.push_back(blankIndex);
-				used[blankIndex] = true;
-			}
-		}
+		prev = JACOBSTHAL[i];
 	}
+	if (prev < n - 1)
+	{
+		for (std::size_t index = n - 1; index > prev; index--)
+				order.push_back(index);
+	}	
 
-	for (size_t k = 0; k < n; k++)
-		if (!used[k])
-			order.push_back(k);
+	// std::cout << "JACOBS:";
+	// for (std::size_t size = 0; size < order.size(); size++)
+	// 	std::cout << " " << order[size];
+	// std::cout << std::endl;
 	return (order);
 }
 
