@@ -1,1 +1,0 @@
-Straggler should be part of the penultimate chain, and be inserted via jacobsthal as well

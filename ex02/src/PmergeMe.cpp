@@ -94,8 +94,14 @@ static std::vector<std::size_t> insertionOrder(std::size_t n)
 template <typename Container>
 static void insertElements(Container &c, int element, int upperBound)
 {
-	typename Container::iterator it = std::lower_bound(c.begin(), c.end(), upperBound);
-	std::size_t right = std::distance(c.begin(), it);
+	std::size_t right;
+	if (upperBound == -1)
+		right = c.size();
+	else
+	{
+		typename Container::iterator it = std::lower_bound(c.begin(), c.end(), upperBound);
+		right = std::distance(c.begin(), it);
+	}
 	std::size_t left = 0;
 
 	while (left < right)
@@ -109,13 +115,18 @@ static void insertElements(Container &c, int element, int upperBound)
 	c.insert(c.begin() + left, element);
 }
 
-static std::deque<int> jdeqInsert(std::deque<std::pair <int, int> > &c)
+static std::deque<int> jdeqInsert(std::deque<std::pair <int, int> > &c, int remainder)
 {
+	if (remainder != -1)
+		c.push_back(std::make_pair(-1, remainder));
+
 	std::vector<std::size_t> order;
 	std::size_t size = c.size();
 	order = insertionOrder(size);
 	
-	std::deque<int> dSorted;	
+	std::deque<int> dSorted;
+	if (remainder -= -1)
+		size -= 1;	
        	for (std::size_t i = 0; i < size; i++)
 		dSorted.push_back(c[i].first);
 
@@ -128,13 +139,18 @@ static std::deque<int> jdeqInsert(std::deque<std::pair <int, int> > &c)
 	return (dSorted);
 }
 
-static std::vector<int> jvecInsert(std::vector<std::pair <int, int> > &c)
+static std::vector<int> jvecInsert(std::vector<std::pair <int, int> > &c, int remainder)
 {
+	if (remainder != -1)
+		c.push_back(std::make_pair(-1, remainder));
+
 	std::vector<std::size_t> order;
 	std::size_t size = c.size();
 	order = insertionOrder(size);
 	
-	std::vector<int> vSorted;	
+	std::vector<int> vSorted;
+	if (remainder != -1)
+		size -= 1;	
        	for (std::size_t i = 0; i < size; i++)
 		vSorted.push_back(c[i].first);
 
@@ -205,12 +221,7 @@ void PmergeMe::deqSort()
 	}
 
 	mergeSort(tmp, 0, tmp.size() - 1);
-	_deqSorted = jdeqInsert(tmp);
-	if (remainder != -1)
-	{
-		std::deque<int>::iterator it = std::lower_bound(_deqSorted.begin(), _deqSorted.end(), remainder);
-		_deqSorted.insert(it, remainder);
-	}
+	_deqSorted = jdeqInsert(tmp, remainder);
 	_deq = getTime() - start_time;
 }
 
@@ -247,12 +258,7 @@ void PmergeMe::vecSort()
 	// 	std::cout << "First: " << tmp[k].first << " Second: " << tmp[k].second << std::endl;
 	// if (remainder != -1)
 	// 	std::cout << "Remainder: " << remainder << std::endl;
-	_vecSorted = jvecInsert(tmp);
-	if (remainder != -1)
-	{
-		std::vector<int>::iterator it = std::lower_bound(_vecSorted.begin(), _vecSorted.end(), remainder);
-		_vecSorted.insert(it, remainder);
-	}
+	_vecSorted = jvecInsert(tmp, remainder);
 	_vec = getTime() - start_time;
 }
 
