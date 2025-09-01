@@ -9,9 +9,10 @@ class PmergeMe
 {
 	private:
 		std::vector<int> _unsorted;
-		std::vector<int> _sorted;		
-		float _deq;
-		float _vec;
+		std::deque<int> _deqSorted;
+		std::vector<int> _vecSorted;		
+		double _deq;
+		double _vec;
 	public:
 		PmergeMe();
 		PmergeMe(const std::vector<int>& v);
@@ -20,7 +21,7 @@ class PmergeMe
 		~PmergeMe();
 
 		void vecSort();
-		// void deqSort();
+		void deqSort();
 		void print();
 };
 

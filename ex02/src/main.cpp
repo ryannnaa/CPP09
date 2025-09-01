@@ -52,6 +52,7 @@ int main(int argc, char **argv)
 
 		PmergeMe test(v);
 		test.vecSort();
+		test.deqSort();
 		test.print();
 	}
 	catch (std::exception& e)
