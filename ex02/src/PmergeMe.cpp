@@ -130,6 +130,7 @@ static std::deque<int> jdeqInsert(std::deque<std::pair <int, int> > &c, int rema
        	for (std::size_t i = 0; i < size; i++)
 		dSorted.push_back(c[i].first);
 
+	dSorted.insert(dSorted.begin(), c[0].second);
 	for (std::size_t j = 0; j < order.size(); j++)
 	{
 		std::size_t index = order[j];
@@ -154,6 +155,7 @@ static std::vector<int> jvecInsert(std::vector<std::pair <int, int> > &c, int re
        	for (std::size_t i = 0; i < size; i++)
 		vSorted.push_back(c[i].first);
 
+	vSorted.insert(vSorted.begin(), c[0].second);
 	for (std::size_t j = 0; j < order.size(); j++)
 	{
 		std::size_t index = order[j];
