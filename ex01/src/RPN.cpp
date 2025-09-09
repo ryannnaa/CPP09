@@ -55,6 +55,8 @@ void RPN::applyOperator(const std::string& op)
 			_items.push(a * b);
 			break;
 		case '/':
+            if (b == 0)
+                throw std::runtime_error("Division by zero");
 			_items.push(a / b);
 			break;
 		default:

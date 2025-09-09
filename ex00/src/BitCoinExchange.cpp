@@ -126,7 +126,7 @@ void BitCoinExchange::checkPrices(const std::string& file) const
 			std::cerr << "Error: not a positive number." << std::endl;
 			continue;
 		}
-		if (value > 10000)
+		if (value > 1000)
 		{
 			std::cerr << "Error: too large a number." << std::endl;
 			continue;
@@ -139,6 +139,7 @@ void BitCoinExchange::checkPrices(const std::string& file) const
 			std::cout << "No valid exchange found in database, earliest date is " << _data.begin()->first << std::endl;
 		else
 		{
+            --it;
 			float amount = it->second * value;
 			std::cout << key << " => " << value << " = " << std::fixed << std::setprecision(2) << amount << std::endl;
 		}
