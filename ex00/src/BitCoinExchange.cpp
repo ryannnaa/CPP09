@@ -132,16 +132,23 @@ void BitCoinExchange::checkPrices(const std::string& file) const
 			continue;
 		}
 
-		std::map<std::string, float>::const_iterator it = _data.lower_bound(key);
-		if (it == _data.end())
-			--it;
-		else if (it->first != key && it == _data.begin())
-			std::cout << "No valid exchange found in database, earliest date is " << _data.begin()->first << std::endl;
-		else
-		{
-            --it;
-			float amount = it->second * value;
-			std::cout << key << " => " << value << " = " << std::fixed << std::setprecision(2) << amount << std::endl;
-		}
+        std::map<std::string, float>::const_iterator it = _data.find(key);
+        if (it != _data.end())
+        {
+            float amount = it->second * value;
+            std::cout << key << " => " << std::fixed << std::setprecision(2) << value << " = " << amount << std::endl;
+        }
+        else 
+        {
+            it = _data.lower_bound(key);
+            if (it == _data.begin())
+                std::cout << "No valid exchange found in database, earliest date is " << _data.begin()->first << std::endl;
+            else
+            {
+                --it;
+                float amount = it->second * value;
+                std::cout << key << " => " << std::fixed << std::setprecision(2) << value << " = " << amount << std::endl;
+            }
+        }
 	}
 }
