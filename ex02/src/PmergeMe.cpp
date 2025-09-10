@@ -84,10 +84,10 @@ static std::vector<std::size_t> insertionOrder(std::size_t n)
 				order.push_back(index);
 	}	
 
-	// std::cout << "JACOBS:";
-	// for (std::size_t size = 0; size < order.size(); size++)
-	// 	std::cout << " " << order[size];
-	// std::cout << std::endl;
+//	std::cout << "JACOBS:";
+//	for (std::size_t size = 0; size < order.size(); size++)
+//		std::cout << " " << order[size];
+//	std::cout << std::endl;
 	return (order);
 }
 
@@ -156,10 +156,12 @@ static std::vector<int> jvecInsert(std::vector<std::pair <int, int> > &c, int re
 		vSorted.push_back(c[i].first);
 
 	vSorted.insert(vSorted.begin(), c[0].second);
-	for (std::size_t j = 0; j < order.size(); j++)
+     for (std::size_t j = 0; j < order.size(); j++)
 	{
 		std::size_t index = order[j];
-		insertElements(vSorted, c[index].second, c[index].first);
+        if (index == c.size())
+           break; 
+        insertElements(vSorted, c[index].second, c[index].first);
 	}
 
 	return (vSorted);
@@ -277,6 +279,6 @@ void PmergeMe::print()
 	std::cout << "\nTime to process a range of " << _unsorted.size() 
 		<< " elements with std::deque : " << std::fixed << std::setprecision(5) << _deq/1000 << " ms";
 
-	std::cout << "\nTime to process a range of " << _unsorted.size() 
+	std::cout << "\nTime to process a range of " << _vecSorted.size() 
 		<< " elements with std::vector : " << std::fixed << std::setprecision(5) << _vec/1000 << " ms" << std::endl;
 }

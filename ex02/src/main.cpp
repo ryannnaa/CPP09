@@ -11,16 +11,19 @@ bool isPositiveInt(std::string token)
 {
 	if (token.empty())
 		return (false);
-	if (token.size() > 1 && token[0] == '0')
-		return (false);
-	if (token.size() >= 10 && token != "2147483647")
-		return (false);
-	for (int i = 0; token[i]; i++)
+	if (token.size() > 10)
+        return (false);
+    for (int i = 0; token[i]; i++)
 	{
 		if (!std::isdigit(token[i]))
 			return (false);
 	}
-	return (true);
+    long long value = 0;
+    for (std::size_t i = 0; i < token.size(); i++)
+        value = value * 10 + (token[i] - '0');
+    if (value > INT_MAX)
+        return (false);
+    return (value > 0);
 }
 
 void parseArguments(char **argv, std::vector<int>& v)
