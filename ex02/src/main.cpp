@@ -1,5 +1,6 @@
 #include "PmergeMe.hpp"
 #include <cctype>
+#include <climits>
 #include <cstdlib>
 #include <iostream>
 #include <string>
