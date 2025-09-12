@@ -116,7 +116,7 @@ void BitCoinExchange::checkPrices(const std::string& file) const
 
 		std::istringstream iss(line.substr(pos + 3));
 		float value;
-		if (!(iss >> value))
+		if (!(iss >> value) || !(iss >> std::ws).eof())
 		{
 			std::cerr << "Error: invalid number." << std::endl;
 			continue;
